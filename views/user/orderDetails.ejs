@@ -72,7 +72,7 @@
                                                 <%if(allowReturn==true) {%>
                                                     <div
                                                         class="col-md-2 d-flex mb-3 pt-2 justify-content-center align-items-center">
-                                                        <form action="/returnOrder" method="post">
+                                                        <form action="/returnOrder" method="post" id="returnForm">
                                                             <input type="hidden" name="orderId"
                                                                 value="<%=orderDetails._id  %>">
                                                             <input type="hidden" name="status"
@@ -181,5 +181,26 @@
     </body>
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.js"></script>
     <script src="/javascript/formPopup.js"></script>
+    <script>
+        function showConfirmation() {
+    Swal.fire({
+        title: 'Are you sure?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, submit!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+    }).then((result) => {
+        if (result.isConfirmed) {
+            // If the user confirms, submit the form
+            document.getElementById('returnForm').submit();
+        }
+    });
+}
+document.getElementById('returnForm').addEventListener('submit', function (event) {
+    event.preventDefault(); // Prevent the form from submitting directly
+    showConfirmation(); // Show the confirmation box
+});
+    </script>
 
     <%- include('../includes/footer.ejs') %>
