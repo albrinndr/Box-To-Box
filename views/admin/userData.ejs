@@ -1,0 +1,118 @@
+<%- include('../includes/head.ejs') %>
+  <link rel="stylesheet" href="/css/admin/users.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+  <link rel="stylesheet" href="/css/admin/navBar.css ">
+
+
+  </head>
+
+  <body>
+    <%- include('../includes/admin/sidebar.ejs') %>
+      <main style="margin-top: 108px;">
+        <div class="container mb-4">
+          <div class="mt-5 mb-5">
+            <span class="heading">ALL CUSTOMERS</span>
+
+          </div>
+          <div class=" table-responsive">
+            <table class="table text-center  align-items-center" id="sortTable">
+              <thead>
+                <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Mobile</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Action</th>
+                </tr>
+              </thead>
+              <tbody>
+                <% if(userData.length>0){
+                  for(let i=0;i<userData.length;i++){%>
+
+                    <tr class="align-middle">
+                      <th scope="row">
+                        <%= i+1%>
+                      </th>
+                      <td>
+                        <%= userData[i].fname%>
+                      </td>
+                      <td>
+                        <%= userData[i].mobile%>
+                      </td>
+                      <td>
+                        <%= userData[i].email%>
+                      </td>
+                      <% const dd=userData[i].date.getDate(); const mm=userData[i].date.getMonth() + 1; const
+                        yyyy=userData[i].date.getFullYear(); const formattedDate=`${dd}-${mm}-${yyyy}`; %>
+                        <td>
+                          <%= formattedDate%>
+                        </td>
+
+                        <%if(userData[i].status===true){%>
+
+                          <td><a href="/admin/status/<%= userData[i]._id%>" id="myAnchor" class="btn rounded-0 block-btn">BLOCK</a>
+                            <input id="userIdForPopup" value="<%= userData[i]._id%>"  hidden></input>
+                              
+                            
+                          </td>
+                          <%}else{%>
+                            <td><a href="/admin/status/<%= userData[i]._id%>"
+                                class="btn rounded-0 unBlock-btn">UNBLOCK</a>
+                            </td>
+
+                            <%}%>
+
+                    </tr>
+                    <% } } else{%>
+                      <tr>
+                        <td>Users not found</td>
+                      </tr>
+                      <% }%>
+
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </main>
+  </body>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
+
+  <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+
+  <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+
+  <script>
+    $('#sortTable').DataTable();
+  </script>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.js"></script>
+
+  <script>
+    // Function to show SweetAlert confirmation box
+    function showConfirmation() {
+      Swal.fire({
+        title: 'Are you sure?',
+        icon: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Yes, go!',
+        cancelButtonText: 'No, cancel!',
+        reverseButtons: true
+      }).then((result) => {
+        if (result.isConfirmed) {
+          let id = document.getElementById('userIdForPopup').value
+          // If the user confirms, redirect to the desired link
+          window.location.href = "/admin/status/" + id; // Replace with your desired link
+        }
+      });
+    }
+
+    // Add event listener to the anchor tag
+    document.getElementById('myAnchor').addEventListener('click', function (event) {
+      event.preventDefault(); // Prevent the default behavior of the anchor tag
+      showConfirmation(); // Show the confirmation box
+    });
+  </script>
+
+  <%- include('../includes/footer.ejs') %>

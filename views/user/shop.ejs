@@ -1,0 +1,277 @@
+<%- include('../includes/head.ejs') %>
+    <link rel="stylesheet" href="/css/user/shop.css">
+    </head>
+
+    <body>
+        <%- include('../includes/user/header.ejs') %>
+
+            <div class="container mt-5">
+                <div>
+                    <h1>ALL PRODUCTS</h1>
+                </div>
+
+                <div class="row pt-5">
+                    <div class="col-md-3 col-lg-2 mb-4 mb-md-0 filter-bar" style="height: fit-content;">
+                        <div class=" pt-2" style="height: 100%;">
+                            <h4>FILTER </h4>
+                            <% if(removeFilter==='true' ) {%>
+                                <a href="/shop?page=1"
+                                    style="background-color: rgb(141, 141, 252); padding: 2px 6px; color: white; cursor: pointer;">Remove
+                                    Filters&nbsp;x</a>
+                                <% } %>
+                                    <div class="ps-2 mt-2">
+                                        <h5><strong>CATEGORIES</strong></h5>
+                                        <div class="ps-2 mt-2">
+                                            <% categoryNames.forEach((cat)=>{ %>
+                                                <p>
+                                                    <% if(category==cat._id){ %>
+                                                        <a href="?category=<%=cat._id  %>&sortValue=<%=sortValue  %>&brand=<%=brand  %>&minPrice=<%=minPrice  %>&maxPrice=<%=maxPrice  %>&search=<%=search  %>"
+                                                            style="color: blue;">
+                                                            <%=cat.name %>
+                                                        </a>
+                                                        <% } else{%>
+                                                            <a href="?category=<%=cat._id  %>&sortValue=<%=sortValue  %>&brand=<%=brand  %>&minPrice=<%=minPrice  %>&maxPrice=<%=maxPrice  %>&search=<%=search  %>"
+                                                                style="color: #636363;">
+                                                                <%=cat.name %>
+                                                            </a>
+                                                            <% } %>
+
+                                                </p>
+                                                <% }) %>
+                                        </div>
+
+                                    </div>
+                                    <div class="ps-2 pt-4">
+                                        <h5><strong>BRAND</strong></h5>
+                                        <div class="ps-2">
+                                            <% brands.forEach((brandD)=>{ %>
+                                                <p>
+                                                    <% if(brand==brandD._id) {%>
+                                                        <a href="?brand=<%=brandD._id %>&sortValue=<%=sortValue  %>&category=<%=category  %>&minPrice=<%=minPrice  %>&maxPrice=<%=maxPrice  %>&search=<%=search  %>"
+                                                            style="color: blue">
+                                                            <%=brandD._id %>
+                                                        </a>
+                                                        <% } else{%>
+                                                            <a href="?brand=<%=brandD._id %>&sortValue=<%=sortValue  %>&category=<%=category  %>&minPrice=<%=minPrice  %>&maxPrice=<%=maxPrice  %>&search=<%=search  %>"
+                                                                style="color: #636363;">
+                                                                <%=brandD._id %>
+                                                            </a>
+                                                            <% } %>
+
+                                                </p>
+
+                                                <% }) %>
+                                        </div>
+
+                                    </div>
+                                    <div class="ps-2 pt-4">
+                                        <h5><strong>PRICE</strong></h5>
+                                        <div class="ps-2">
+                                            <% if(maxPrice==3999){ %>
+                                                <p><a href="?minPrice=0&maxPrice=3999&sortValue=<%=sortValue  %>&category=<%=category  %>&brand=<%=brand  %>&search=<%=search  %>"
+                                                        style="color: blue;">under ₹3999</a></p>
+                                                <% }else{ %>
+                                                    <p><a href="?minPrice=0&maxPrice=3999&sortValue=<%=sortValue  %>&category=<%=category  %>&brand=<%=brand  %>&search=<%=search  %>"
+                                                            style="color: #636363;">under ₹3999</a></p>
+                                                    <% } %>
+                                                        <% if(maxPrice==8999){ %>
+                                                            <p><a href="?minPrice=4000&maxPrice=8999&sortValue=<%=sortValue  %>&category=<%=category  %>&brand=<%=brand  %>&search=<%=search  %>"
+                                                                    style="color: blue;">₹4000 - ₹8999</a>
+                                                            </p>
+                                                            <% }else{ %>
+                                                                <p><a href="?minPrice=4000&maxPrice=8999&sortValue=<%=sortValue  %>&category=<%=category  %>&brand=<%=brand  %>&search=<%=search  %>"
+                                                                        style="color: #636363;">₹4000 - ₹8999</a>
+                                                                </p>
+                                                                <% } %>
+
+                                                                    <% if(maxPrice==13999){ %>
+                                                                        <p><a href="?minPrice=9000&maxPrice=13999&sortValue=<%=sortValue  %>&category=<%=category  %>&brand=<%=brand  %>&search=<%=search  %>"
+                                                                                style="color: blue">₹9000 -
+                                                                                ₹13999</a></p>
+                                                                        <% }else{ %>
+                                                                            <p><a href="?minPrice=9000&maxPrice=13999&sortValue=<%=sortValue  %>&category=<%=category  %>&brand=<%=brand  %>&search=<%=search  %>"
+                                                                                    style="color: #636363;">₹9000 -
+                                                                                    ₹13999</a></p>
+                                                                            <% } %>
+
+
+                                                                                <% if(maxPrice==18999){ %>
+                                                                                    <p><a href="?minPrice=14000&maxPrice=18999&sortValue=<%=sortValue  %>&category=<%=category  %>&brand=<%=brand  %>&search=<%=search  %>"
+                                                                                            style="color: blue;">₹14000
+                                                                                            -
+                                                                                            ₹18999</a></p>
+                                                                                    <% }else{ %>
+                                                                                        <p><a href="?minPrice=14000&maxPrice=18999&sortValue=<%=sortValue  %>&category=<%=category  %>&brand=<%=brand  %>&search=<%=search  %>"
+                                                                                                style="color: #636363;">₹14000
+                                                                                                -
+                                                                                                ₹18999</a></p>
+                                                                                        <% } %>
+
+
+                                                                                            <% if(minPrice==19000){ %>
+                                                                                                <p><a href="?minPrice=19000&sortValue=<%=sortValue  %>&category=<%=category  %>&brand=<%=brand  %>&search=<%=search  %>"
+                                                                                                        style="color: blue;">₹19000+</a>
+                                                                                                </p>
+                                                                                                <% }else{ %>
+                                                                                                    <p><a href="?minPrice=19000&sortValue=<%=sortValue  %>&category=<%=category  %>&brand=<%=brand  %>&search=<%=search  %>"
+                                                                                                            style="color: #636363;">₹19000+</a>
+                                                                                                    </p>
+                                                                                                    <% } %>
+
+                                        </div>
+
+                                    </div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="d-md-none">
+                        <div class="dropdown">
+                            <button class="btn dropdown-toggle  col-2 d-flex justify-content-between" type="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                <p style="  margin-top: -10px;
+                        margin-bottom: 1rem;
+                      "><span>Filter</span>
+                            </button>
+                            <ul class="dropdown-menu col-12">
+                                <li><a href="#" class="dropdown-item">
+                                        <h4>Categories</h4>
+                                    </a></li>
+                                <li><a href="#" class="dropdown-item">
+                                        <p>Jersey</p>
+                                    </a></li>
+                                <li><a href="#" class="dropdown-item">
+                                        <p>Boot</p>
+                                    </a></li>
+                                <li><a href="#" class="dropdown-item">
+                                        <p>Accessories</p>
+                                    </a></li>
+                            </ul>
+                        </div>
+                    </div> -->
+
+
+
+
+                    <div class="col-md-9 col-lg-10">
+                        <div class="row">
+
+
+                            <div class="col me-3 text-end">
+                                <label for="">Sort : </label>
+
+                                <% if(sortValue&&sortValue==3) {%>
+                                    <a href="?sortValue=3&category=<%=category  %>&brand=<%=brand  %>&minPrice=<%=minPrice  %>&maxPrice=<%=maxPrice  %>&search=<%=search  %>"
+                                        style="color: blue;">&nbsp;Latest&nbsp;|</a>
+                                    <% } else{%>
+                                        <a
+                                            href="?sortValue=3&category=<%=category  %>&brand=<%=brand  %>&minPrice=<%=minPrice  %>&maxPrice=<%=maxPrice  %>&search=<%=search  %>">&nbsp;Latest&nbsp;|</a>
+                                        <% } %>
+                                            <% if(sortValue&&sortValue==2) {%>
+                                                <a href="?sortValue=2&category=<%=category  %>&brand=<%=brand  %>&minPrice=<%=minPrice  %>&maxPrice=<%=maxPrice  %>&search=<%=search  %>"
+                                                    style="color: blue;">&nbsp;Price low to
+                                                    High&nbsp;|</a>
+                                                <% } else{%>
+                                                    <a
+                                                        href="?sortValue=2&category=<%=category  %>&brand=<%=brand  %>&minPrice=<%=minPrice  %>&maxPrice=<%=maxPrice  %>&search=<%=search  %>">&nbsp;Price
+                                                        low to High&nbsp;|</a>
+                                                    <% } %>
+                                                        <% if(sortValue&&sortValue==1) {%>
+                                                            <a href="?sortValue=1&category=<%=category  %>&brand=<%=brand  %>&minPrice=<%=minPrice  %>&maxPrice=<%=maxPrice  %>&search=<%=search  %>"
+                                                                style="color: blue;">&nbsp;Price High
+                                                                to Low</a>
+                                                            <% } else{%>
+                                                                <a
+                                                                    href="?sortValue=1&category=<%=category  %>&brand=<%=brand  %>&minPrice=<%=minPrice  %>&maxPrice=<%=maxPrice  %>&search=<%=search  %>">&nbsp;Price
+                                                                    High to Low</a>
+                                                                <% } %>
+
+                                                                    <!-- <a href="?sortValue=1">&nbsp;Price High to Low</a> -->
+                                                                    <!-- <select class="border-0" id="sortSelect">
+                                    
+                                    <option value="low">Price low to high</option>
+                                    <option value="high">Price high to low</option>
+                                </select> -->
+                            </div>
+
+                        </div>
+                        <div class="row mt-3">
+
+                            <% if(prods.length>0){ prods.forEach((prod)=>{%>
+
+                                <div class="col-lg-3  col-6 pb-5">
+                                    <a href="/product?id=<%=prod._id%>" style="text-decoration: none; color: inherit;">
+                                        <div class="card border-0 img-fluid productCards" style="width: 15rem;">
+
+                                            <div class="image-container">
+                                                <img class="card-img-top" src="/productImages/<%=prod.images[0]  %>"
+                                                    alt="Card image cap">
+                                            </div>
+                                            <div class="card-body">
+                                                <small>
+                                                    <%=prod.brand %>
+                                                </small>
+                                                <p class="card-title prod-name text-uppercase">
+                                                    <%=prod.name %>
+                                                </p>
+
+                                                <p class="card-text"><span class="dPrice">₹<%=prod.dPrice %>
+                                                    </span>&nbsp;
+                                                    <span class="price">₹<%=prod.price %></span>&nbsp;&nbsp;
+                                                    <br> <span class="discount">
+                                                        <% if(prod.offer) {%>
+                                                            <small class=" text-white p-1 ps-2  pe-2"
+                                                                style="font-weight: 100;background-color: rgb(0, 156, 0);">Special
+                                                                <%= Math.floor(100-((prod.dPrice/prod.price)*100)) %>%
+                                                                    off
+                                                            </small>
+
+                                                            <% } else{%>
+                                                                <%= Math.floor(100-((prod.dPrice/prod.price)*100)) %>%
+                                                                    off
+                                                                    <% } %>
+
+                                                    </span>
+                                                </p>
+
+                                            </div>
+                                        </div>
+                                    </a>
+                                </div>
+                                <% })} else{%>
+                                    <div style="height: 80vh; display: grid;place-content: center;">
+                                        <!-- <small>sorry! no products available</small> -->
+                                        <img src="/extras/no-products.jpg" width="400rem" alt="" class="img-fluid">
+                                    </div>
+                                    <% } %>
+                        </div>
+                    </div>
+                </div>
+                <nav aria-label="...">
+                    <ul class="pagination justify-content-end">
+                        <% for(let i=1;i<=pageCount;i++) {%>
+                            <li class="page-item <%=locals.currentPage==i?'active':''%>"><a class="page-link"
+                                    href="/shop?page=<%=i  %>&sortValue=<%=sortValue  %>&category=<%=category  %>&brand=<%=brand  %>&minPrice=<%=minPrice  %>&maxPrice=<%=maxPrice  %>&search=<%=search  %>">
+                                    <%=i %>
+                                </a></li>
+                            <% } %>
+                    </ul>
+                </nav>
+            </div>
+            <%- include('../includes/user/footerSection.ejs') %>
+
+    </body>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"
+        integrity="sha512-3gJwYpMe3QewGELv8k/BX9vcqhryRdzRMxVfq6ngyWXwo03GFEzjsUm8Q7RZcHPHksttq7/GFoxjCVUjkjvPdw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    <script>
+        document.getElementById("sortSelect").addEventListener("change", function () {
+            var selectedValue = this.value;
+            if (selectedValue === "low") {
+                window.location.href = "?sortValue=2";
+            } else if (selectedValue === "high") {
+                window.location.href = "?sortValue=1";
+            }
+        });
+    </script>
+    <%- include('../includes/footer.ejs') %>
