@@ -74,9 +74,13 @@
                                             </td>
                                             <%if(categoryData[i].status===true){%>
 
-                                                <td><a href="/admin/category/status/<%= categoryData[i]._id%>"
-                                                        class="btn  rounded-0 list-btn" id="myAnchor">LISTED</a></td>
-                                                        <input type="text" name="" id="categoryIdPopup" value="<%= categoryData[i]._id%>" hidden>
+                                                <td>
+                                                    <a href="#confirmationPopUp"
+                                                        class="btn  rounded-0 list-btn modalBTN" data-bs-toggle="modal" data-id="<%= categoryData[i]._id%>">LISTED</a>
+                                                    <!-- <a href="/admin/category/status/<%= categoryData[i]._id%>"
+                                                        class="btn  rounded-0 list-btn" >LISTED</a> -->
+                                                    
+                                                    </td>
                                                 <%}else{%>
                                                     <td><a href="/admin/category/status/<%= categoryData[i]._id%>"
                                                             class="btn  rounded-0 unList-btn">UNLISTED</a></td>
@@ -234,6 +238,27 @@
                                                             </div>
                                                         </div>
 
+                                                        <!-- POPUP Modal Start  -->
+                                                                  <div class="modal fade" id="confirmationPopUp" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                                                    <div class="modal-dialog">
+                                                                      <div class="modal-content">
+                                                                          <div class="modal-header">
+                                                                          <h1 class="modal-title fs-5" id="exampleModalLabel">Are You Sure?</h1>
+                                                                          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                                          </div>
+                                                                          <div class="modal-body">
+                                                                                  <strong> Do you want to unlist/list the category ?</strong>
+                                                                                  <div class="modal-footer mt-2">
+                                                                                      <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                                                                      
+                                                                                      <a id="confirmBTN" type="button" class="btn btn-primary">Confirm</a>
+                                                                                  </div>
+                                                                          </div>
+                                                                      </div>
+                                                                    </div>
+                                                                </div> 
+                                                                <!-- Modal End  -->
+
 
                                         </tr>
                                         <% } }else{%>
@@ -271,37 +296,18 @@
 
         });
     </script>
-
-    // popups
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.js"></script>
-    <script src="/javascript/formPopup.js"></script>
-
-
     <script>
-        // Function to show SweetAlert confirmation box
-        function showConfirmationStatus() {
-            Swal.fire({
-                title: 'Are you sure?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, go!',
-                cancelButtonText: 'No, cancel!',
-                reverseButtons: true
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    let id = document.getElementById('categoryIdPopup').value
-                    // If the user confirms, redirect to the desired link
-                    window.location.href = "/admin/category/status/" + id; // Replace with your desired link
-                }
-            });
-        }
+    $('.modalBTN').click( function () {
+        var catId = $(this).data('id');
+        var routeURL = '/admin/category/status/'+catId
+        $(".modal-footer #confirmBTN").attr('href', routeURL);
+    });
+</script>
 
-        // Add event listener to the anchor tag
-        document.getElementById('myAnchor').addEventListener('click', function (event) {
-            event.preventDefault(); // Prevent the default behavior of the anchor tag
-            showConfirmationStatus(); // Show the confirmation box
-        });
-    </script>
+
+
+    
+
+    
 
     <%- include('../includes/footer.ejs') %>

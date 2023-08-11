@@ -143,15 +143,26 @@
                                                 <div class="d-flex">
                                                     <div class="row w-100">
                                                         <div class="col-9">
+                                                            <%if(cartProdExist){%>
+                                                                <a href="/cart"><button 
+                                                                    class="btn w-100 rounded-0 "
+                                                                    style="color: #E53637; border: 1px solid #E53637;height: 55px; font-weight: 800;">
+   
+    
+                                                                    GO TO CART</i>
+                                                                </button></a>
+                                                                <%}else{%>
                                                             <form action="/cart/<%=prod._id%>" method="post">
                                                                 <input type="hidden" id="selectedValueInput"
                                                                     name="size">
+                                                                    
                                                                 <button type="submit"
                                                                     class="btn w-100 rounded-0 cartBTN"
-                                                                    onclick="return check()">
+                                                                    onclick="return check()" style="font-weight: 800;">
                                                                     ADD TO CART</i>
                                                                 </button>
                                                             </form>
+                                                            <%}%>
                                                         </div>
                                                         <div class="col-3 text-start">
                                                             <form action="/wishList/<%=prod._id%>" method="post">

@@ -362,8 +362,20 @@ const product = async (req, res, next) => {
             if (reviewData) userReviewed = 1
         }
 
+        let cartProdExist=false
+        if(req.session.user){
+            let userId=req.session.user._id
+            let userCart=await CART.findOne({user:userId})
+            if(userCart){
+                userCart.products.forEach((prod)=>{
+                    if(prod.productId==id){
+                        cartProdExist=true
+                    }
+                })
+            }
+        }
         if (prod) {
-            res.render('user/product', { prod, user: req.session.user, wishListExist, userReviewed, pageTitle: 'Product' })
+            res.render('user/product', { prod, user: req.session.user, wishListExist, userReviewed, pageTitle: 'Product',cartProdExist })
         } else {
             res.render('404')
         }

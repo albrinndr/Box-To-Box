@@ -164,20 +164,20 @@
                                                 <hr>
                                                 <div class="mb-2 mt-3">
                                                     <h5>Choose Payment</h5>
-                                                    <% if(walletBalance>0) {%>
+                                                 
                                                         <div id="walletPaymentCheckBoxDiv" <% if(walletBalance>=
-                                                            discountPrice) {%>hidden<% } %>>
+                                                            discountPrice) {%>hidden<% } %> >
 
 
                                                                 <input type="checkbox" name="walletCheckBox"
                                                                     id="walletCheckBox" class="me-2"><label
-                                                                    for="walletCheckBox"><strong>Use Wallet
+                                                                    for="walletCheckBox" ><strong>Use Wallet
                                                                         Balance ( ₹<span id="walletBalance">
                                                                             <%=walletBalance %>
                                                                         </span> )</strong></label>
 
                                                         </div>
-                                                        <% } %>
+                                                       
 
                                                             <div id="paymentOptions">
                                                                 <div id="paymentCod">
@@ -451,6 +451,11 @@
     <script>
         // JavaScript
         document.addEventListener('DOMContentLoaded', function () {
+let dataForDisabled=parseInt(document.getElementById('walletBalance').innerHTML)
+if(dataForDisabled<=0){
+        document.getElementById('walletCheckBox').disabled=true
+}
+
             const walletCheckbox = document.getElementById('walletCheckBox');
             const codRadio = document.getElementById('COD');
             const onlineRadio = document.getElementById('ONLINE');

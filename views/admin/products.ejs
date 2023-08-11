@@ -92,9 +92,10 @@
 
                                                     <%if(prods[i].status===true){%>
 
-                                                <td><a href="/admin/product/delete/<%=prods[i]._id%>"
-                                                        class="btn  rounded-0 remove-btn" id="myAnchor">REMOVE</a></td>
-                                                        <input type="text" name="" value="<%=prods[i]._id%>" id="productIdPopup" hidden>
+                                                <td><a href="#confirmationPopUp"
+                                                        class="btn  rounded-0 remove-btn modalBTN" id="myAnchor"
+                                                        data-bs-toggle="modal" data-id="<%=prods[i]._id%>">REMOVE</a>
+                                                </td>
                                                 <%}else{%>
                                                     <td><a href="/admin/product/delete/<%=prods[i]._id%>"
                                                             class="btn  rounded-0 removed-btn">REMOVED</a></td>
@@ -215,6 +216,46 @@
                                                                                             </div>
                                                                                         </div>
                                                                                     </div>
+
+                                                                                    <!-- POPUP Modal Start  -->
+                                                                                    <div class="modal fade"
+                                                                                        id="confirmationPopUp"
+                                                                                        tabindex="-1"
+                                                                                        aria-labelledby="exampleModalLabel"
+                                                                                        aria-hidden="true">
+                                                                                        <div class="modal-dialog">
+                                                                                            <div class="modal-content">
+                                                                                                <div
+                                                                                                    class="modal-header">
+                                                                                                    <h1 class="modal-title fs-5"
+                                                                                                        id="exampleModalLabel">
+                                                                                                        Are You Sure?
+                                                                                                    </h1>
+                                                                                                    <button
+                                                                                                        type="button"
+                                                                                                        class="btn-close"
+                                                                                                        data-bs-dismiss="modal"
+                                                                                                        aria-label="Close"></button>
+                                                                                                </div>
+                                                                                                <div class="modal-body">
+                                                                                                    <strong> Do you want
+                                                                                                        to remove this
+                                                                                                        product
+                                                                                                        ?</strong>
+                                                                                                    <div
+                                                                                                        class="modal-footer mt-2">
+                                                                                                        <button
+                                                                                                            type="button"
+                                                                                                            class="btn btn-secondary"
+                                                                                                            data-bs-dismiss="modal">Close</button>
+                                                                                                        <a id="confirmBTN"
+                                                                                                            class="btn btn-primary">Confirm</a>
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <!-- Modal End  -->
                                         </tr>
                                         <% } }else{%>
                                             <tr>
@@ -259,32 +300,11 @@
 
         });
     </script>
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.17/dist/sweetalert2.min.js"></script>
-    <script src="/javascript/formPopup.js"></script>
-
     <script>
-        // Function to show SweetAlert confirmation box
-        function showConfirmationStatus() {
-            Swal.fire({
-                title: 'Are you sure?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonText: 'Yes, go!',
-                cancelButtonText: 'No, cancel!',
-                reverseButtons: true
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    let id = document.getElementById('productIdPopup').value
-                    // If the user confirms, redirect to the desired link
-                    window.location.href = "/admin/product/delete/" + id; // Replace with your desired link
-                }
-            });
-        }
-
-        // Add event listener to the anchor tag
-        document.getElementById('myAnchor').addEventListener('click', function (event) {
-            event.preventDefault(); // Prevent the default behavior of the anchor tag
-            showConfirmationStatus(); // Show the confirmation box
+        $('.modalBTN').click(function () {
+            var userId = $(this).data('id');
+            var routeURL = '/admin/product/delete/' + userId
+            $(".modal-footer #confirmBTN").attr('href', routeURL);
         });
     </script>
 

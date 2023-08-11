@@ -43,7 +43,7 @@ const getPlaceOrder = async (req, res, next) => {
         const userData = await USER.findOne({ _id: user._id })
         const walletBalance = userData.wallet
 
-        res.render('user/placeOrder', { user, address, cart, totalPrice, discountPrice, couponData, walletBalance,pageTitle:'Place Order' })
+        res.render('user/placeOrder', { user, address, cart, totalPrice, discountPrice, couponData, walletBalance, pageTitle: 'Place Order' })
 
     } catch (error) {
         next(error)
@@ -90,27 +90,29 @@ const postPlaceOrder = async (req, res, next) => {
         let totalPrice = cartData.totalPrice
         let couponName = ''
         let couponDiscount = 0
+        let minusCouponPrice = 0
         if (req.session.coupon != null) {
             couponName = req.session.coupon.name
             couponDiscount = req.session.coupon.discount
-            totalPrice = totalPrice -couponDiscount
-           
+            minusCouponPrice = couponDiscount / productList.length
         }
 
         //method COD///////////////////////////////
         if (paymentType === 'COD') {
 
-            await new ORDER({
-                user: user._id,
-                deliveryAddress: address,
-                products: productList,
-                totalPrice: totalPrice,
-                paymentMethod: paymentType,
-                status: 'Order Confirmed',
-                date: new Date(),
-                couponName,
-                couponDiscount
-            }).save()
+            productList.forEach(async (prod) => {
+                await new ORDER({
+                    user: user._id,
+                    deliveryAddress: address,
+                    products: prod,
+                    totalPrice: prod.totalProductDiscountPrice - minusCouponPrice,
+                    paymentMethod: paymentType,
+                    status: 'Order Confirmed',
+                    date: new Date(),
+                    couponName,
+                    couponDiscount: minusCouponPrice
+                }).save()
+            })
 
 
             for (const { productId, quantity } of productList) {
@@ -132,17 +134,31 @@ const postPlaceOrder = async (req, res, next) => {
 
         } else if (paymentType === 'WALLET') {
 
-            await new ORDER({
-                user: user._id,
-                deliveryAddress: address,
-                products: productList,
-                totalPrice: totalPrice,
-                paymentMethod: paymentType,
-                status: 'Order Confirmed',
-                date: new Date(),
-                couponName,
-                couponDiscount
-            }).save()
+            // await new ORDER({
+            //     user: user._id,
+            //     deliveryAddress: address,
+            //     products: productList,
+            //     totalPrice: totalPrice,
+            //     paymentMethod: paymentType,
+            //     status: 'Order Confirmed',
+            //     date: new Date(),
+            //     couponName,
+            //     couponDiscount
+            // }).save()
+
+            productList.forEach(async (prod) => {
+                await new ORDER({
+                    user: user._id,
+                    deliveryAddress: address,
+                    products: prod,
+                    totalPrice: prod.totalProductDiscountPrice - minusCouponPrice,
+                    paymentMethod: paymentType,
+                    status: 'Order Confirmed',
+                    date: new Date(),
+                    couponName,
+                    couponDiscount: minusCouponPrice
+                }).save()
+            })
 
 
             for (const { productId, quantity } of productList) {
@@ -157,8 +173,8 @@ const postPlaceOrder = async (req, res, next) => {
                 await COUPON.findByIdAndUpdate({ _id: req.session.coupon._id }, { $push: { usedUsers: user._id } })
             }
             req.session.cartCount = 0
-            const userData=await USER.findOne({ _id: req.session.user._id})
-            let walletBalanceTotal=userData.wallet-totalPrice
+            const userData = await USER.findOne({ _id: req.session.user._id })
+            let walletBalanceTotal = userData.wallet - totalPrice
 
             await USER.findByIdAndUpdate({ _id: req.session.user._id }, {
                 $inc: { wallet: -totalPrice },
@@ -242,26 +258,33 @@ const verifyPayment = async (req, res, next) => {
             let totalPrice = cartData.totalPrice
             let couponName = ''
             let couponDiscount = 0
+            let minusCouponPrice = 0
+            let walletMinus=0
             if (req.session.coupon != null) {
                 couponName = req.session.coupon.name
                 couponDiscount = req.session.coupon.discount
-                totalPrice = totalPrice - couponDiscount
-                
+                minusCouponPrice = couponDiscount / productList.length
+
+            }
+            if(req.session.wallet){
+                walletMinus=req.session.wallet/productList.length
             }
             const paymentType = 'ONLINE'
 
 
-            await new ORDER({
-                user: user._id,
-                deliveryAddress: req.session.deliveryAddress,
-                products: productList,
-                totalPrice: totalPrice,
-                paymentMethod: paymentType,
-                status: 'Order Confirmed',
-                date: new Date(),
-                couponName,
-                couponDiscount
-            }).save()
+            productList.forEach(async(prod)=>{
+                await new ORDER({
+                    user: user._id,
+                    deliveryAddress: req.session.deliveryAddress,
+                    products: prod,
+                    totalPrice: prod.totalProductDiscountPrice - minusCouponPrice-walletMinus,
+                    paymentMethod: paymentType,
+                    status: 'Order Confirmed',
+                    date: new Date(),
+                    couponName,
+                    couponDiscount:minusCouponPrice
+                }).save()
+            })
 
 
             for (const { productId, quantity } of productList) {
@@ -306,18 +329,18 @@ const verifyPayment = async (req, res, next) => {
 
 const getOrders = async (req, res, next) => {
     try {
-        let page=1
-        if(req.query.page){
-            page=req.query.page
+        let page = 1
+        if (req.query.page) {
+            page = req.query.page
         }
-        let limit=6
-        
+        let limit = 6
+
         const user = req.session.user
         const orders = await ORDER.find({ user: user._id }).populate('products.productId').sort({ date: -1 }).limit(limit * 1).skip((page - 1) * limit)
         let totalOrdersCount = await ORDER.find({ user: user._id }).count()
-        let pageCount=Math.ceil(totalOrdersCount/limit)
+        let pageCount = Math.ceil(totalOrdersCount / limit)
 
-        res.render('user/orders', { user, orders,pageTitle:'Orders',pageCount,currentPage:page })
+        res.render('user/orders', { user, orders, pageTitle: 'Orders', pageCount, currentPage: page })
     } catch (error) {
         next(error)
     }
@@ -331,7 +354,7 @@ const orderDetails = async (req, res, next) => {
 
         const orders = await ORDER.find({ user: user._id }).populate('products.productId')
         // const orderDetails = orders.find(data => data._id.toString() === orderId)
-        const orderDetails = await ORDER.findOne({ _id:orderId }).populate('products.productId')
+        const orderDetails = await ORDER.findOne({ _id: orderId }).populate('products.productId')
 
         let status = 0
         if (orderDetails.status.toString() === 'Order Confirmed') {
@@ -352,17 +375,17 @@ const orderDetails = async (req, res, next) => {
         } else if (orderDetails.status.toString() === 'Returned') {
             status = 8
         }
-        
-        let allowReturn=true
-        let orderedDate=orderDetails.date
-        let returnLastDate=new Date(orderedDate.getTime() + 14 * 24 * 60 * 60 * 1000);
 
-        
-        if(new Date()>returnLastDate){
-            allowReturn=false
+        let allowReturn = true
+        let orderedDate = orderDetails.date
+        let returnLastDate = new Date(orderedDate.getTime() + 14 * 24 * 60 * 60 * 1000);
+
+
+        if (new Date() > returnLastDate) {
+            allowReturn = false
         }
-        
-        res.render('user/orderDetails', { user, orderDetails, status,pageTitle:'Order Details',allowReturn })
+
+        res.render('user/orderDetails', { user, orderDetails, status, pageTitle: 'Order Details', allowReturn })
     } catch (error) {
         next(error)
     }
@@ -373,7 +396,7 @@ const getOrdersAdmin = async (req, res, next) => {
     try {
         const orders = await ORDER.find({}).populate('products.productId').populate('user').sort({ date: -1 })
 
-        res.render('admin/ordersDetails', { orders,pageTitle:'Orders' })
+        res.render('admin/ordersDetails', { orders, pageTitle: 'Orders' })
     } catch (error) {
         next(error)
     }
@@ -440,7 +463,7 @@ const orderSuccess = async (req, res, next) => {
             req.session.cartCount = 0
         }
         //
-        res.render('user/orderSuccess', { user: req.session.user ,pageTitle:'Order Success'})
+        res.render('user/orderSuccess', { user: req.session.user, pageTitle: 'Order Success' })
     } catch (error) {
         next(error)
     }
@@ -451,7 +474,7 @@ const singleOrderDetails = async (req, res, next) => {
         const orderId = req.query.id
         const order = await ORDER.findOne({ _id: orderId }).populate('products.productId').populate('user')
         // console.log(order);
-        res.render('admin/singleOrderDetails', { order,pageTitle:'Order Details' })
+        res.render('admin/singleOrderDetails', { order, pageTitle: 'Order Details' })
 
     } catch (error) {
         next(error)
@@ -495,7 +518,7 @@ const invoice = async (req, res, next) => {
         const orderId = req.query.id
         const order = await ORDER.findOne({ _id: orderId })
         // console.log(order);
-        res.render('user/invoice', { order,pageTitle:'Invoice' })
+        res.render('user/invoice', { order, pageTitle: 'Invoice' })
     } catch (error) {
         next(error)
     }
