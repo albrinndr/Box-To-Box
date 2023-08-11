@@ -221,7 +221,7 @@ const getDashboard = async (req, res, next) => {
             },
             {
                 $group: {
-                    _id: '$populatedCategory.name', sales: { $sum: '$totalPrice' } // Assuming 'name' is the field you want from the category collection
+                    _id: '$populatedCategory.name', sales: { $sum: '$products.totalProductDiscountPrice' } // Assuming 'name' is the field you want from the category collection
                 }
             }
         ])
