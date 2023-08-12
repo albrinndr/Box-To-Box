@@ -109,7 +109,7 @@ const postEditProduct = async (req, res, next) => {
             quantity, description, price, dPrice } = req.body
         let brand = req.body.brand.toUpperCase()
 
-        console.log(brand);
+        // console.log(brand);
         let size = []
         if (check1) size.push(check1)
         if (check2) size.push(check2)
@@ -123,7 +123,7 @@ const postEditProduct = async (req, res, next) => {
             for (let file of req.files) {
                 newImages.push(file.filename)
             }
-            console.log(id);
+            // console.log(id);
             await PRODUCTS.findOneAndUpdate({ _id: id }, { $push: { images: { $each: newImages } } })
         }
 
