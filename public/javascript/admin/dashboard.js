@@ -62,3 +62,15 @@ function printTable() {
     setTimeout(function () { newWin.close(); }, 10);
     table.hidden = true;
 }
+
+
+
+  function updateToDateMin() {
+    const fromDateInput = document.getElementById('sDate');
+    const toDateInput = document.getElementById('eDate');
+    
+    const fromDate = new Date(fromDateInput.value);
+    if (fromDate) {
+      toDateInput.min = fromDate.toISOString().split('T')[0];
+    }
+  }

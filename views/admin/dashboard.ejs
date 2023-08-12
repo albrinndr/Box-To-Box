@@ -161,9 +161,9 @@
                                 <div class="mt-3">
                                     <form action="" method="get">
                                         <label for="sDate" class="form-label">Starting Date: </label>
-                                        <input type="date" name="sDate" id="sDate" class="form-control mb-3" required>
+                                        <input type="date" name="sDate" id="sDate" class="form-control mb-3" max="<%=new Date().toISOString().split('T')[0]%>" onchange="updateToDateMin()" required>
                                         <label for="eDate" class="form-label">Ending Date: </label>
-                                        <input type="date" name="eDate" id="eDate" class="form-control mb-3" required>
+                                        <input type="date" name="eDate" id="eDate" class="form-control mb-3" max="<%=new Date().toISOString().split('T')[0]%>" required>
 
                                         <div class="text-center mt-3">
                                             <button class="btn btn-success w-50" type="submit">Get</button>
