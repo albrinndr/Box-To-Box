@@ -98,7 +98,6 @@
         function check() {
             
             const radioButtons = document.querySelectorAll('input[type="radio"]');
-          
                 let isRadioButtonSelected = false;
                 radioButtons.forEach(function (radioButton) {
                     if (radioButton.checked) {
@@ -106,8 +105,7 @@
                     }
                 });
 
-                if (!isRadioButtonSelected) {
-                   
+                if (!isRadioButtonSelected) {         
                     const errorMessage = document.getElementById('rating-error');
                     errorMessage.innerHTML = 'Please select rating'
                     return false

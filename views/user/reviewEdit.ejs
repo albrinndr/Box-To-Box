@@ -85,7 +85,6 @@
     </body>
     <script>
         function check() {
-
             const radioButtons = document.querySelectorAll('input[type="radio"]');
 
             let isRadioButtonSelected = false;
@@ -96,7 +95,6 @@
             });
 
             if (!isRadioButtonSelected) {
-
                 const errorMessage = document.getElementById('rating-error');
                 errorMessage.innerHTML = 'Please select rating'
                 return false

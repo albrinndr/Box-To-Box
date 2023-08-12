@@ -112,27 +112,27 @@
                                                             <input class="form-check-input" type="checkbox" value="5"
                                                                 id="check1" name="check1"
                                                                 onclick="handleCheckboxChange()">
-                                                            <label class="form-check-label" for="check1">5</label>
+                                                            <label class="form-check-label" for="">5</label>
                                                             <input class="form-check-input" type="checkbox" value="6"
                                                                 id="check2" name="check2"
                                                                 onclick="handleCheckboxChange()">
-                                                            <label class="form-check-label" for="check2">6</label>
+                                                            <label class="form-check-label" for="">6</label>
                                                             <input class="form-check-input" type="checkbox" value="7"
                                                                 id="check3" name="check3"
                                                                 onclick="handleCheckboxChange()">
-                                                            <label class="form-check-label" for="check3">7</label>
+                                                            <label class="form-check-label" for="">7</label>
                                                             <input class="form-check-input" type="checkbox" value="8"
                                                                 id="check4" name="check4"
                                                                 onclick="handleCheckboxChange()">
-                                                            <label class="form-check-label" for="check4">8</label>
+                                                            <label class="form-check-label" for="">8</label>
                                                             <input class="form-check-input" type="checkbox" value="9"
                                                                 id="check5" name="check5"
                                                                 onclick="handleCheckboxChange()">
-                                                            <label class="form-check-label" for="check5">9</label>
+                                                            <label class="form-check-label" for="">9</label>
                                                             <input class="form-check-input" type="checkbox" value="10"
                                                                 id="check6" name="check6"
                                                                 onclick="handleCheckboxChange()">
-                                                            <label class="form-check-label" for="check6">10</label>
+                                                            <label class="form-check-label" for="">10</label>
                                                         </div>
                                                     </div>
 
@@ -177,74 +177,7 @@
                     </div>
                 </section>
             </main>
-            <script>
-
-
-                function handleCheckboxChange() {
-                    var frCheckboxes = document.querySelectorAll('#size-number input[type="checkbox"]');
-                    var anDiv = document.getElementById('size-character');
-
-                    // Check if any checkbox in the "fr" div is selected
-                    var isChecked = Array.from(frCheckboxes).some(function (checkbox) {
-                        return checkbox.checked;
-                    });
-
-                    // Enable or disable the "an" div based on the checkbox state
-                    if (isChecked) {
-                        anDiv.style.pointerEvents = 'none'; // Disable the div
-                        anDiv.style.opacity = '0.5'; // Optional: Reduce the opacity to indicate it's disabled
-                    } else {
-                        anDiv.style.pointerEvents = 'auto'; // Enable the div
-                        anDiv.style.opacity = '1'; // Optional: Restore the original opacity
-                    }
-                }
-
-
-                function handleCheckboxChange1() {
-                    var frCheckboxes = document.querySelectorAll('#size-character input[type="checkbox"]');
-                    var anDiv = document.getElementById('size-number');
-
-                    // Check if any checkbox in the "fr" div is selected
-                    var isChecked = Array.from(frCheckboxes).some(function (checkbox) {
-                        return checkbox.checked;
-                    });
-
-                    // Enable or disable the "an" div based on the checkbox state
-                    if (isChecked) {
-                        anDiv.style.pointerEvents = 'none'; // Disable the div
-                        anDiv.style.opacity = '0.5'; // Optional: Reduce the opacity to indicate it's disabled
-                    } else {
-                        anDiv.style.pointerEvents = 'auto'; // Enable the div
-                        anDiv.style.opacity = '1'; // Optional: Restore the original opacity
-                    }
-                }
-            </script>
-            <script>
-                // Function to check if at least one size checkbox is checked
-                function isSizeChecked() {
-                    const characterSizes = document.querySelectorAll("#size-character input[type=checkbox]");
-                    const numberSizes = document.querySelectorAll("#size-number input[type=checkbox]");
-
-                    // Check if at least one checkbox is checked in either group
-                    return Array.from(characterSizes).some(checkbox => checkbox.checked) ||
-                        Array.from(numberSizes).some(checkbox => checkbox.checked);
-                }
-
-                // Function to handle form submission
-                function handleSubmit(event) {
-                    if (!isSizeChecked()) {
-                        event.preventDefault(); // Prevent form submission
-                        alert("Please select at least one size.");
-                    } else {
-                        // Form is valid, submit the form
-                    }
-                }
-
-                // Add event listener to the form's submit event
-                const form = document.getElementById("myForm");
-                form.addEventListener("submit", handleSubmit);
-            </script>
+            <script src="/javascript/admin/addProduct.js"></script>
             <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-
     </body>
     <%- include('../includes/footer.ejs') %>

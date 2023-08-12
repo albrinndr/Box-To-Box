@@ -2,8 +2,6 @@
   <link rel="stylesheet" href="/css/admin/users.css">
   <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
   <link rel="stylesheet" href="/css/admin/navBar.css ">
-
-
   </head>
 
   <body>
@@ -58,12 +56,12 @@
 
                           </td>
                           <%}else{%>
-                            <td><a href="#confirmationPopUp"  data-id="<%= userData[i]._id %>" data-bs-toggle="modal"
+                            <td><a href="#confirmationPopUp" data-id="<%= userData[i]._id %>" data-bs-toggle="modal"
                                 class="btn rounded-0 unBlock-btn modalBTN">UNBLOCK</a>
                             </td>
 
                             <%}%>
-                             
+
 
                               <div class="modal fade" id="confirmationPopUp" tabindex="-1"
                                 aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -85,7 +83,7 @@
                                   </div>
                                 </div>
                               </div>
-                           
+
                     </tr>
                     <% } } else{%>
                       <tr>
@@ -99,7 +97,7 @@
         </div>
       </main>
   </body>
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"> </script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
 
   <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 
@@ -108,14 +106,13 @@
   <script>
     $('#sortTable').DataTable();
   </script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.0/jquery.min.js"></script>
-<script>
-    $('.modalBTN').click( function () {
-        var userId = $(this).data('id');
-        var routeURL = '/admin/status/'+userId
-        $(".modal-footer #confirmBTN").attr('href', routeURL);
+  <script>
+    $('.modalBTN').click(function () {
+      var userId = $(this).data('id');
+      var routeURL = '/admin/status/' + userId
+      $(".modal-footer #confirmBTN").attr('href', routeURL);
     });
-</script>
+  </script>
 
 
 

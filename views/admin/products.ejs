@@ -152,43 +152,30 @@
                                                                                 <td>No offer Available</td>
                                                                                 <%}%>
                                                                                     <!-- offerModel -->
-                                                                                    <div class="modal fade"
-                                                                                        id="offerModal" tabindex="-1"
-                                                                                        aria-labelledby="exampleModalLabel"
-                                                                                        aria-hidden="true">
-                                                                                        <div class="modal-dialog">
-                                                                                            <div class="modal-content">
-                                                                                                <div
-                                                                                                    class="modal-header">
-                                                                                                    <h5 class="modal-title"
-                                                                                                        id="exampleModalLabel">
-                                                                                                        ADD
-                                                                                                        OFFER</h5>
-                                                                                                    <button
-                                                                                                        type="button"
-                                                                                                        class="btn-close"
-                                                                                                        data-bs-dismiss="modal"
-                                                                                                        aria-label="Close"></button>
+                                                                                    <div class="modal fade"  id="offerModal" tabindex="-1"
+                                                                                         aria-labelledby="exampleModalLabel"  aria-hidden="true">
+                                                                                      
+                                                                                    <div class="modal-dialog">                   
+
+                                                                                       <div class="modal-content">
+
+                                                                                            <div  class="modal-header">
+                                                                                                
+                                                                                                    <h5 class="modal-title"  id="exampleModalLabel"> ADD OFFER</h5>
+                                                                                                   
+                                                                                                      <button type="button"  class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button> 
+                                                                                                    
                                                                                                 </div>
-                                                                                                <form
-                                                                                                    action="/admin/productOfferApply"
-                                                                                                    method="post">
-                                                                                                    <div
-                                                                                                        class="modal-body">
-                                                                                                        <input
-                                                                                                            type="hidden"
-                                                                                                            name="productId"
-                                                                                                            id="offerProductId">
-                                                                                                        <label
-                                                                                                            for="offer">Select
-                                                                                                            an
-                                                                                                            offer
-                                                                                                            to apply:
-                                                                                                        </label>
-                                                                                                        <select
-                                                                                                            name="offerId"
-                                                                                                            id="offer"
-                                                                                                            class="form-control">
+                                                                                                <form  action="/admin/productOfferApply" method="post">
+                                                                                                   
+                                                                                                    <div class="modal-body">
+                                                                                                    
+                                                                                                        <input  type="hidden"  name="productId"  id="offerProductId">
+                                                                                                        <label for="offer">Select an offer to apply: </label>
+                                                                                                           
+                                                                                                        
+                                                                                                        <select name="offerId" id="offer"  class="form-control">
+                                                                                                           
                                                                                                             <%
                                                                                                                 offerData.forEach((offer)=>
                                                                                                                 {
@@ -202,15 +189,12 @@
                                                                                                         </select>
 
                                                                                                     </div>
-                                                                                                    <div
-                                                                                                        class="modal-footer">
-                                                                                                        <button
-                                                                                                            type="button"
-                                                                                                            class="btn btn-secondary"
-                                                                                                            data-bs-dismiss="modal">Close</button>
-                                                                                                        <button
-                                                                                                            type="submit"
-                                                                                                            class="btn btn-primary">ADD</button>
+                                                                                                    <div class="modal-footer">
+                                                                                                        
+                                                                                                        <button type="button" class="btn btn-secondary"  data-bs-dismiss="modal">Close</button>
+                                                                                                            
+                                                                                                        <button type="submit"  class="btn btn-primary">ADD</button>
+                                                                                                            
                                                                                                     </div>
                                                                                                 </form>
                                                                                             </div>
@@ -280,32 +264,6 @@
     <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
 
     <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
-
-    <script>
-        $('#sortTable').DataTable({
-            responsive: true
-        });
-    </script>
-    <script>
-        $(document).on("click", ".offerBtn", function () {
-            var cId = $(this).data('id');
-            $("#offerProductId").val(cId);
-
-        });
-    </script>
-    <script>
-        $(document).on("click", ".offerProductBtn", function () {
-            var cId = $(this).data('id');
-            $("#offerProductId").val(cId);
-
-        });
-    </script>
-    <script>
-        $('.modalBTN').click(function () {
-            var userId = $(this).data('id');
-            var routeURL = '/admin/product/delete/' + userId
-            $(".modal-footer #confirmBTN").attr('href', routeURL);
-        });
-    </script>
+    <script src="/javascript/admin/products.js"></script>
 
     <%- include('../includes/footer.ejs') %>
