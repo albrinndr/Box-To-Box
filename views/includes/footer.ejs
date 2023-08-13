@@ -13,7 +13,7 @@
     }
     function submitQuery() {
         const query = document.getElementById('queryInput').value;
-        const baseUrl = 'http://localhost:3000/shop'; // Replace with your desired link URL
+        const baseUrl = '/shop'; // Replace with your desired link URL
         const urlWithQuery = `${baseUrl}?search=${encodeURIComponent(query)}`;
 
         // Open the link in the same window
@@ -31,7 +31,7 @@
     }
     function searchQuerySubmit() {
         const query = document.getElementById('secondQueryInput').value;
-        const baseUrl = 'http://localhost:3000/shop'; // Replace with your desired link URL
+        const baseUrl = '/shop'; // Replace with your desired link URL
         const urlWithQuery = `${baseUrl}?search=${encodeURIComponent(query)}`;
 
         // Open the link in the same window
