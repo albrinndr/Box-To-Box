@@ -3,10 +3,11 @@ const ADDRESS = require('../models/address')
 const manageAddress = async (req, res,next) => {
     try {
         const user = req.session.user
-        const userAddress = await ADDRESS.find({ user: user._id })
+        const userAddress = await ADDRESS.findOne({ user: user._id })
 
         var addressLimit = req.app.locals.specialContext;
         req.app.locals.specialContext = null;
+        console.log(userAddress);
 
         res.render('user/manageAddress', { userAddress, user, addressLimit,pageTitle:'Manage Address'})
     } catch (error) {

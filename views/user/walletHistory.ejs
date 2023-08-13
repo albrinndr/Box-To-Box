@@ -32,7 +32,7 @@
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <% userData.walletHistory.forEach((data)=>{ %>
+                                        <% userData.walletHistory.reverse().forEach((data)=>{ %>
                                             <tr>
                                                 <th scope="row">
                                                     <%=userData.walletHistory.indexOf(data) +1%>

@@ -277,7 +277,7 @@ const verifyPayment = async (req, res, next) => {
                     user: user._id,
                     deliveryAddress: req.session.deliveryAddress,
                     products: prod,
-                    totalPrice: prod.totalProductDiscountPrice - minusCouponPrice-walletMinus,
+                    totalPrice: prod.totalProductDiscountPrice - minusCouponPrice,
                     paymentMethod: paymentType,
                     status: 'Order Confirmed',
                     date: new Date(),

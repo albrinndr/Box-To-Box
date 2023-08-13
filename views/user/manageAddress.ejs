@@ -4,7 +4,7 @@
 
     <body>
         <%- include('../includes/user/header.ejs') %>
-            <section>
+            <section class="mb-5" style="min-height: 50vh;">
                 <div class="container mt-5">
                     <div class="d-flex justify-content-end mb-3 ">
                         <small style="color: red;">
@@ -14,9 +14,9 @@
                                 class="text-white p-1" id="add-address-btn">ADD NEW
                                 ADDRESS</a></button>
                     </div>
-                    <% if(userAddress.length>0){ %>
+                    <% if( userAddress.address.length>0){ %>
                         <div class="row">
-                            <% userAddress[0].address.forEach((add)=>{ %>
+                            <% userAddress.address.forEach((add)=>{ %>
                                 <div class="col-sm-6 mb-3">
                                     <div class="card">
                                         <div class="card-body">
@@ -53,8 +53,9 @@
                                 </div>
                                 <%})%>
                         </div>
+                      
                         <% }else{ %>
-                            <div class="d-flex flex-column justify-content-center align-items-center mt-5">
+                            <div class="d-flex flex-column justify-content-center align-items-center mt-5" >
                                 <div>
                                     <h5>no address saved</h5>
                                 </div>

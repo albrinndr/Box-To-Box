@@ -253,6 +253,11 @@ const getDashboard = async (req, res, next) => {
         if (req.query.sDate) {
             let sDate = req.query.sDate
             let eDate = req.query.eDate
+
+            sDate = new Date(sDate)
+            eDate = new Date(eDate)
+            eDate = new Date(eDate.getTime() + 1 * 24 * 60 * 60 * 1000);
+
             orderDataDownload = await ORDERS.find({ status: 'Delivered', date: { $gte: sDate, $lte: eDate } }).sort({ date: 1 })
         }
 
@@ -261,7 +266,7 @@ const getDashboard = async (req, res, next) => {
         const orderCount = await ORDERS.find({ status: 'Delivered' }).count()
         const salesCount = await ORDERS.aggregate([{ $match: { status: 'Delivered' } }, { $group: { _id: '$status', total: { $sum: '$totalPrice' } } }])
         let totalSalesProfit = 0
-        if (salesCount) totalSalesProfit = salesCount[0].total
+        if (salesCount&&salesCount.length>0) totalSalesProfit = salesCount[0].total
 
         res.render('admin/dashboard', {
             displayValue, xDisplayValue,

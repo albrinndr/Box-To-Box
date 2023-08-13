@@ -52,9 +52,13 @@ function isSizeChecked() {
 
 // Function to handle form submission
 function handleSubmit(event) {
+
     if (!isSizeChecked()) {
         event.preventDefault(); // Prevent form submission
         alert("Please select at least one size.");
+    } else if (document.getElementById('category').value == 'null') {
+        event.preventDefault(); // Prevent form submission
+        alert("Please select a valid category");
     } else {
         // Form is valid, submit the form
     }

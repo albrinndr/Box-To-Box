@@ -205,7 +205,7 @@ const postLogin = async (req, res, next) => {
 const getHome = async (req, res, next) => {
     try {
         const user = req.session.user
-        const category = await CATEGORY.find({})
+        const category = await CATEGORY.find({status: true})
         // console.log(category);
         const products = await PRODUCTS.find({ status: true }).sort({ createdAt: -1 })
         const banner = await BANNER.find({})
