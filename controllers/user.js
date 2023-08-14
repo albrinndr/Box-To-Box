@@ -46,16 +46,17 @@ const postSignup = async (req, res, next) => {
         console.log(req.session.otp);
         let mailTransporter = nodemailer.createTransport({
             host: "smtp.gmail.com",
-            port: 465,
-            secure: true,
+            port: 587,
+            secure: false,
+            requireTLS: true,
             auth: {
-                user: process.env.USER,
+                user: "boxtobox010@gmail.com",
                 pass: process.env.PASS
             }
         })
 
         let details = {
-            from: process.env.USER,
+            from: 'boxtobox010@gmail.com',
             to: email,
             subject: "Box To Box login OTP",
             text: req.session.otp + " is your Box To Box verification code. Do not share OTP with anyone "
@@ -63,7 +64,7 @@ const postSignup = async (req, res, next) => {
         const sPassword = await bcrypt.hash(password, 10)
         mailTransporter.sendMail(details, (err) => {
             if (err) {
-                req.app.locals.specialContext = 'unexpected error please try again'
+                req.app.locals.specialContext = `unexpected error please try again ${err}`
                 return res.redirect('/signup')
             } else {
                 console.log("OTP Send Successfully ");
@@ -619,15 +620,18 @@ const postContact = async (req, res, next) => {
         const { name, email, subject, message } = req.body
 
         let mailTransporter = nodemailer.createTransport({
-            service: "gmail",
+            host: "smtp.gmail.com",
+            port: 587,
+            secure: false,
+            requireTLS: true,
             auth: {
-                user: process.env.USER,
+                user: "boxtobox010@gmail.com",
                 pass: process.env.PASS
             }
         })
 
         let details = {
-            from: process.env.USER,
+            from: 'boxtobox010@gmail.com',
             to: process.env.USER,
             subject: subject,
             text: 'Name: ' + name + '\nMessage: ' + message + '\nemail: ' + email
