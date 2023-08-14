@@ -563,7 +563,7 @@ const forgotPasswordChange = async (req, res, next) => {
 
 const about = async (req, res, next) => {
     try {
-        res.render('user/about', { pageTitle: 'About' })
+        res.render('user/about', { pageTitle: 'About',user:req.session.user })
     } catch (error) {
         next(error)
     }
