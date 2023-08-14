@@ -1,6 +1,4 @@
-# Project Title
-
-BOX TO BOX
+# BOX TO BOX
 
 ## Description
 
@@ -21,5 +19,5 @@ npm start
 
 ## Authors
 
-Albrin V Anand
+Albrin V Anand | 
 albrinndr@gmail.com
