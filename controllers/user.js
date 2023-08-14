@@ -45,7 +45,9 @@ const postSignup = async (req, res, next) => {
         req.session.otp = generateOTP()
         console.log(req.session.otp);
         let mailTransporter = nodemailer.createTransport({
-            service: "gmail",
+            host: "smtp.gmail.com",
+            port: 465,
+            secure: true,
             auth: {
                 user: process.env.USER,
                 pass: process.env.PASS
@@ -205,7 +207,7 @@ const postLogin = async (req, res, next) => {
 const getHome = async (req, res, next) => {
     try {
         const user = req.session.user
-        const category = await CATEGORY.find({status: true})
+        const category = await CATEGORY.find({ status: true })
         // console.log(category);
         const products = await PRODUCTS.find({ status: true }).sort({ createdAt: -1 })
         const banner = await BANNER.find({})
@@ -311,8 +313,8 @@ const getShop = async (req, res, next) => {
         let pageCount = Math.ceil(totalProductsCount / limit)
 
         let removeFilter = false
-        if (req.query.brand || req.query.category ||req.query.sortValue ||req.query.minPrice||req.query.search) {
-            removeFilter=true
+        if (req.query.brand || req.query.category || req.query.sortValue || req.query.minPrice || req.query.search) {
+            removeFilter = true
         }
 
 
@@ -362,20 +364,20 @@ const product = async (req, res, next) => {
             if (reviewData) userReviewed = 1
         }
 
-        let cartProdExist=false
-        if(req.session.user){
-            let userId=req.session.user._id
-            let userCart=await CART.findOne({user:userId})
-            if(userCart){
-                userCart.products.forEach((prod)=>{
-                    if(prod.productId==id){
-                        cartProdExist=true
+        let cartProdExist = false
+        if (req.session.user) {
+            let userId = req.session.user._id
+            let userCart = await CART.findOne({ user: userId })
+            if (userCart) {
+                userCart.products.forEach((prod) => {
+                    if (prod.productId == id) {
+                        cartProdExist = true
                     }
                 })
             }
         }
         if (prod) {
-            res.render('user/product', { prod, user: req.session.user, wishListExist, userReviewed, pageTitle: 'Product',cartProdExist })
+            res.render('user/product', { prod, user: req.session.user, wishListExist, userReviewed, pageTitle: 'Product', cartProdExist })
         } else {
             res.render('404')
         }
@@ -628,13 +630,13 @@ const postContact = async (req, res, next) => {
             from: process.env.USER,
             to: process.env.USER,
             subject: subject,
-            text: 'Name: '+name + '\nMessage: ' + message+ '\nemail: '+email
+            text: 'Name: ' + name + '\nMessage: ' + message + '\nemail: ' + email
         }
         mailTransporter.sendMail(details, (err) => {
             if (err) {
-              res.json({status:false})
+                res.json({ status: false })
             } else {
-                res.json({status:true})
+                res.json({ status: true })
             }
         })
     } catch (error) {
