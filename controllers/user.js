@@ -311,7 +311,7 @@ const getShop = async (req, res, next) => {
         let pageCount = Math.ceil(totalProductsCount / limit)
 
         let removeFilter = false
-        if (req.query.brand || req.query.category ||req.query.sortValue ||req.query.minPrice) {
+        if (req.query.brand || req.query.category ||req.query.sortValue ||req.query.minPrice||req.query.search) {
             removeFilter=true
         }
 
