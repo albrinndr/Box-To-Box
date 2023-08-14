@@ -1,8 +1,9 @@
 # BOX TO BOX
+An E-commerce Project
 
 ## Description
 
-This is an E-commerce project where users can buy football related products
+This is a nodejs project created using express js framework and mongodb as the database.
 
 ## Getting Started
 
