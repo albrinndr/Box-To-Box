@@ -495,15 +495,18 @@ const postForgotPassword = async (req, res, next) => {
             let generateOTP = () => Math.floor(Math.random() * 1000000)
             req.session.forgotPasswordOTP = generateOTP()
             let mailTransporter = nodemailer.createTransport({
-                service: "gmail",
+                host: "smtp.gmail.com",
+                port: 587,
+                secure: false,
+                requireTLS: true,
                 auth: {
-                    user: process.env.USER,
+                    user: "boxtobox010@gmail.com",
                     pass: process.env.PASS
                 }
             })
 
             let details = {
-                from: process.env.USER,
+                from: "boxtobox010@gmail.com",
                 to: email,
                 subject: "Password reset OTP",
                 text: req.session.forgotPasswordOTP + " is your Box To Box reset password OTP. Do not share OTP with anyone "
