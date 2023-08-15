@@ -14,7 +14,7 @@
                                 class="text-white p-1" id="add-address-btn">ADD NEW
                                 ADDRESS</a></button>
                     </div>
-                    <% if( userAddress.address.length>0){ %>
+                    <% if(userAddress&& userAddress.address &&userAddress.address.length>0){ %>
                         <div class="row">
                             <% userAddress.address.forEach((add)=>{ %>
                                 <div class="col-sm-6 mb-3">
@@ -42,8 +42,7 @@
                                                 <div class="ms-3 mt-1">
                                                     <form action="/delete-address/<%=add._id%>" method="post"><button
                                                             class="border-0" type="submit" style="background:none;">
-                                                            <a href="" > <i
-                                                                    class="bi bi-trash3-fill"
+                                                            <a href=""> <i class="bi bi-trash3-fill"
                                                                     style="color: red; font-size: 20px;"></i></a></button>
                                                     </form>
                                                 </div>
@@ -53,9 +52,9 @@
                                 </div>
                                 <%})%>
                         </div>
-                      
+
                         <% }else{ %>
-                            <div class="d-flex flex-column justify-content-center align-items-center mt-5" >
+                            <div class="d-flex flex-column justify-content-center align-items-center mt-5">
                                 <div>
                                     <h5>no address saved</h5>
                                 </div>
@@ -66,8 +65,8 @@
                             <% } %>
                 </div>
             </section>
-            <%- include('../includes/user/footerSection.ejs') %>
-
+                <%- include('../includes/user/footerSection.ejs') %>
+            
     </body>
 
     <%- include('../includes/footer.ejs') %>

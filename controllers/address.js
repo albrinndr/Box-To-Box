@@ -7,7 +7,7 @@ const manageAddress = async (req, res,next) => {
 
         var addressLimit = req.app.locals.specialContext;
         req.app.locals.specialContext = null;
-        console.log(userAddress);
+        // console.log(userAddress);
 
         res.render('user/manageAddress', { userAddress, user, addressLimit,pageTitle:'Manage Address'})
     } catch (error) {
