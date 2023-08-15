@@ -15,7 +15,7 @@ const getCategory = async (req, res, next) => {
         const currentDate = new Date()
         const offerData = await OFFER.find({ $and: [{ status: true }, { expiryDate: { $gt: currentDate } }] })
 
-        res.render('admin/category', { categoryData, message, offerData,pageTitle:'Category' })
+        res.render('admin/category', { categoryData, message, offerData, pageTitle: 'Category' })
 
     } catch (error) {
         next(error)
@@ -24,22 +24,26 @@ const getCategory = async (req, res, next) => {
 
 
 const addCategory = async (req, res, next) => {
-    const name = req.body.name.toUpperCase()
-    const categoryData = await CATEGORY.find({})
+    try {
+        const name = req.body.name.toUpperCase()
+        const categoryData = await CATEGORY.find({})
 
-    const image = req.file.filename
-    console.log(image);
+        const image = req.file.filename
+        console.log(image);
 
-    const existingName = await CATEGORY.findOne({ name })
-    if (existingName) {
-        req.app.locals.specialContext = 'Name already exists'
-        // return res.render('admin/category', { message, categoryData })
-        return res.redirect('/admin/category')
+        const existingName = await CATEGORY.findOne({ name })
+        if (existingName) {
+            req.app.locals.specialContext = 'Name already exists'
+            // return res.render('admin/category', { message, categoryData })
+            return res.redirect('/admin/category')
 
+        }
+        const category = new CATEGORY({ name, image })
+        const catData = await category.save()
+        if (catData) res.redirect('/admin/category')
+    } catch (error) {
+        next(error)
     }
-    const category = new CATEGORY({ name, image })
-    const catData = await category.save()
-    if (catData) res.redirect('/admin/category')
 }
 
 
@@ -183,7 +187,7 @@ const applyOffer = async (req, res, next) => {
         const updatingProducts = await PRODUCTS.find({ category: categoryId })
         for (const product of updatingProducts) {
             const price = product.price
-            const dPrice=product.dPrice
+            const dPrice = product.dPrice
             const offerPrice = Math.round(price - ((price * offerData.discount) / 100))
             await PRODUCTS.updateOne({ _id: product._id, offer: { $exists: false } },
                 {

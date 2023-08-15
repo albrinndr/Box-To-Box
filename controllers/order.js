@@ -259,20 +259,20 @@ const verifyPayment = async (req, res, next) => {
             let couponName = ''
             let couponDiscount = 0
             let minusCouponPrice = 0
-            let walletMinus=0
+            let walletMinus = 0
             if (req.session.coupon != null) {
                 couponName = req.session.coupon.name
                 couponDiscount = req.session.coupon.discount
                 minusCouponPrice = couponDiscount / productList.length
 
             }
-            if(req.session.wallet){
-                walletMinus=req.session.wallet/productList.length
+            if (req.session.wallet) {
+                walletMinus = req.session.wallet / productList.length
             }
             const paymentType = 'ONLINE'
 
 
-            productList.forEach(async(prod)=>{
+            productList.forEach(async (prod) => {
                 await new ORDER({
                     user: user._id,
                     deliveryAddress: req.session.deliveryAddress,
@@ -282,7 +282,7 @@ const verifyPayment = async (req, res, next) => {
                     status: 'Order Confirmed',
                     date: new Date(),
                     couponName,
-                    couponDiscount:minusCouponPrice
+                    couponDiscount: minusCouponPrice
                 }).save()
             })
 
@@ -403,16 +403,24 @@ const getOrdersAdmin = async (req, res, next) => {
 }
 
 const orderStatus = async (req, res, next) => {
-    const orderId = req.body.orderId
-    const status = req.body.status
-    await ORDER.updateOne({ _id: orderId }, { $set: { status } })
-    res.redirect('/admin/orders')
+    try {
+        const orderId = req.body.orderId
+        const status = req.body.status
+        await ORDER.updateOne({ _id: orderId }, { $set: { status } })
+        res.redirect('/admin/orders')
+    } catch (error) {
+        next(error)
+    }
 }
 const returnOrder = async (req, res, next) => {
-    const orderId = req.body.orderId
-    const status = req.body.status
-    await ORDER.updateOne({ _id: orderId }, { $set: { status } })
-    res.redirect(`/orderDetails?details=${orderId}`)
+    try {
+        const orderId = req.body.orderId
+        const status = req.body.status
+        await ORDER.updateOne({ _id: orderId }, { $set: { status } })
+        res.redirect(`/orderDetails?details=${orderId}`)
+    } catch (error) {
+        next(error)
+    }
 }
 
 const cancelOrder = async (req, res, next) => {
