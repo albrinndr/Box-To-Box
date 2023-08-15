@@ -1,5 +1,5 @@
 # BOX TO BOX
-An E-commerce Project | [Application demo](https://boxtobox.website/)
+An E-commerce Project | [Application Link](https://boxtobox.website/)
 
 ## Description
 
