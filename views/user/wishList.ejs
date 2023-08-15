@@ -3,64 +3,72 @@
     </head>
 
     <body>
-        <%- include('../includes/user/header.ejs') %>
-            <section>
-                <div class="container mt-5">
-                    <div class="mb-4">
-                        <h1>WISHLIST</h1>
-                    </div>
-                    <div class="row mt-4">
-                        <%if(wishList.length>0){wishList.forEach((prod)=>{ %>
-                            <div class="col-6 col-md-3 mb-4">
-                                <div class="card">
-                                    <div class="image-container">
-                                        <a href="/product?id=<%=prod._id %>">
-                                            <img src="/productImages/<%=prod.images[0] %>" class="card-img-top"
-                                                alt="...">
-                                        </a>
-                                    </div>
-                                    <div class="card-body">
-                                        <small>
-                                            <%=prod.brand %>
-                                        </small>
-                                        <p class="card-title text-uppercase">
-                                            <%=prod.name %>
-                                        </p>
-                                        <strong class="price">₹ <%=prod.dPrice %></strong>
-                                    </div>
-                                    <div class="p-3">
-                                        <div class="mb-3">
-                                            <a href="/product?id=<%=prod._id %>" class="btn  w-100 rounded-0 text-white"
-                                                style="background-color: #e53637;">VIEW PRODUCT</a>
-                                        </div>
-                                        <div>
-                                            <form action="/wishList/<%=prod._id%>?location=wishList" method="post">
-                                                <button class="btn w-100 rounded-0"
-                                                    style="color: #e53637; border: 1px solid #e53637;"
-                                                    type="submit">REMOVE</button>
-                                            </form>
+        <div class="main-top-section">
 
+            <%- include('../includes/user/header.ejs') %>
+                <section>
+                    <div class="container mt-5">
+                        <div class="mb-4">
+                            <h1>WISHLIST</h1>
+                        </div>
+                        <div class="row mt-4">
+                            <%if(wishList.length>0){wishList.forEach((prod)=>{ %>
+                                <div class="col-6 col-md-3 mb-4">
+                                    <div class="card">
+                                        <div class="image-container">
+                                            <a href="/product?id=<%=prod._id %>">
+                                                <img src="/productImages/<%=prod.images[0] %>" class="card-img-top"
+                                                    alt="...">
+                                            </a>
+                                        </div>
+                                        <div class="card-body">
+                                            <small>
+                                                <%=prod.brand %>
+                                            </small>
+                                            <p class="card-title text-uppercase">
+                                                <%=prod.name %>
+                                            </p>
+                                            <strong class="price">₹ <%=prod.dPrice %></strong>
+                                        </div>
+                                        <div class="p-3">
+                                            <div class="mb-3">
+                                                <a href="/product?id=<%=prod._id %>"
+                                                    class="btn  w-100 rounded-0 text-white"
+                                                    style="background-color: #e53637;">VIEW PRODUCT</a>
+                                            </div>
+                                            <div>
+                                                <form action="/wishList/<%=prod._id%>?location=wishList" method="post">
+                                                    <button class="btn w-100 rounded-0"
+                                                        style="color: #e53637; border: 1px solid #e53637;"
+                                                        type="submit">REMOVE</button>
+                                                </form>
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <% })}else {%>
-                                <div style="height: 50vh;">
-                                    <div style="display: grid;place-content: center;">
-                                        <img src="/extras/empty-wishlist.png" class="img-fluid" alt="" style="width: 30rem;">
-                                        <div class="text-center mt-3"><a href="/shop?page=1" class="btn btn-warning w-50">Go to shop</a></div>
-                                        
+                                <% })}else {%>
+                                    <div style="height: 50vh;">
+                                        <div style="display: grid;place-content: center;">
+                                            <img src="/extras/empty-wishlist.png" class="img-fluid" alt=""
+                                                style="width: 30rem;">
+                                            <div class="text-center mt-3"><a href="/shop?page=1"
+                                                    class="btn btn-warning w-50">Go to shop</a></div>
 
+
+                                        </div>
                                     </div>
-                                </div>
+
+                        </div>
+                        <% } %>
 
                     </div>
-                    <% } %>
 
-                </div>
-                </div>
-            </section>
-            <%- include('../includes/user/footerSection.ejs') %>
+                </section>
+        </div>
+        </div>
+
+        <%- include('../includes/user/footerSection.ejs') %>
 
     </body>
     <%- include('../includes/footer.ejs') %>
