@@ -19,6 +19,7 @@
                                             <label class="form-label" for="name">Name</label>
                                             <input type="text" id="name" class="form-control form-control-lg rounded-0"
                                                 placeholder="Enter your name" name="name" required />
+                                            <small style="color: red;" id="name-error"></small>
                                         </div>
                                         <div class="form-outline mb-4">
                                             <label class="form-label" for="typeEmailX-2">Email</label>
@@ -41,8 +42,9 @@
                                         </div>
                                         <div class="text-center">
                                             <button class="btn btn-md btn-danger w-50 rounded-0 "
-                                                type="submit">SEND</button>
+                                                type="submit" onclick="return validateForm()">SEND</button>
                                         </div>
+                                        
                                     </form>
                                 </div>
                             </div>
@@ -78,6 +80,7 @@
                             }
                         });
                     } else {
+                        
                         Swal.fire({
                             icon: 'error',
                             title: 'Error!',
@@ -89,5 +92,29 @@
                 }
             })
         })
+    </script>
+    <script>
+        const nameRegex = /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/;
+        const nameError = document.getElementById("name-error")
+
+        function validateName() {
+            let name = document.getElementById("name").value
+
+            if (name.length === 0) {
+                nameError.innerHTML = "Name required!";
+                return false;
+            }
+            if (!name.match(nameRegex)) {
+                nameError.innerHTML = "No numbers allowed";
+                return false;
+            }
+            nameError.innerHTML = "";
+            return true;
+        }
+        function validateForm() {
+            if (!validateName()) {
+                return false;
+            }
+        }
     </script>
     <%- include('../includes/footer.ejs') %>

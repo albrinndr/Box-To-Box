@@ -632,18 +632,17 @@ const postContact = async (req, res, next) => {
                 pass: process.env.PASS
             }
         })
-
         let details = {
             from: 'boxtobox010@gmail.com',
-            to: process.env.USER,
+            to: 'boxtobox010@gmail.com',
             subject: subject,
             text: 'Name: ' + name + '\nMessage: ' + message + '\nemail: ' + email
         }
         mailTransporter.sendMail(details, (err) => {
             if (err) {
-                res.json({ status: false })
+               res.json({ status: false })
             } else {
-                res.json({ status: true })
+             res.json({ status: true })
             }
         })
     } catch (error) {
