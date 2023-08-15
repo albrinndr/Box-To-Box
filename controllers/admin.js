@@ -287,7 +287,7 @@ const getDashboard = async (req, res, next) => {
 //admin usersPage
 const getUserData = async (req, res, next) => {
     try {
-        const userData = await USER.find({})
+        const userData = await USER.find({}).sort({date:-1})
         res.render('admin/userData', { userData, pageTitle: 'User Data' })
 
     } catch (error) {
