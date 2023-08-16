@@ -1,4 +1,5 @@
 ## BOX TO BOX (E-Commerce-app)
+An online shopping cart
 [Link to the website](https://boxtobox.website/)
 
 ## Key Features:
