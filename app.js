@@ -13,14 +13,14 @@ dbConnect()
 
 const userRoutes = require('./routes/user')
 const adminRoutes = require('./routes/admin')
-const errorHandler=require('./middleware/errorHandler')
+const errorHandler = require('./middleware/errorHandler')
 
 app.set('view engine', 'ejs')
 
 app.use(express.urlencoded({ extended: false }))
 app.use(express.json())
 app.use(express.static(path.join(__dirname, 'public')))
-app.use(session({ secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: true, cookie: { maxAge: 24 * 60 * 60000 } }))
+app.use(session({ secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: true, cookie: { maxAge: 30 * 24 * 60 * 60 * 60000 } }))
 app.use(nocache())
 
 app.use(userRoutes)
