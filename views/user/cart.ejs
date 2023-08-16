@@ -234,9 +234,9 @@
                         // $(`#${spanID}msg`).html(res.data.st)
                         $('#subTotal').html(`₹ ${res.data.totalPrice}`)
                         $('#totalPrice').html(`₹ ${res.data.discountPrice}`)
-                        $(`#${spanID}y`).html(`₹ ${res.data.dPrice}`)
+                        $(`#${spanID}y`).html(`₹${res.data.dPrice}`)
                         $(`#discount`).html(`-₹${res.data.totalDiscount}`)
-                        $(`#${spanID}price`).html(`₹ ${res.data.productPrice}`)
+                        $(`#${spanID}price`).html(`₹${res.data.productPrice}`)
 
                         document.getElementById(`${spanID}plus`).disabled = false
                         document.getElementById(`${spanID}minus`).disabled = false
