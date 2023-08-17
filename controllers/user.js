@@ -634,7 +634,7 @@ const postContact = async (req, res, next) => {
         })
         let details = {
             from: 'boxtobox010@gmail.com',
-            to: 'boxtobox010@gmail.com',
+            to: process.env.MY_EMAIL,
             subject: subject,
             text: 'Name: ' + name + '\nMessage: ' + message + '\nemail: ' + email
         }
