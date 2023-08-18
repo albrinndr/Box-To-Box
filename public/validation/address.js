@@ -3,6 +3,7 @@ const mobileError = document.getElementById("mobile-error")
 const pincodeError = document.getElementById("pincode-error")
 const townError = document.getElementById("town-error")
 const stateError = document.getElementById("state-error")
+const addressError = document.getElementById("address-error")
 
 const nameRegex = /^[a-zA-Z]+(([',. -][a-zA-Z ])?[a-zA-Z]*)*$/;
 const mobileRegex = /^(\+\d{1,3}[- ]?)?\d{10}$/
@@ -37,6 +38,16 @@ function validateMobile() {
     }
     mobileError.innerHTML = ""
     return true
+}
+
+function validateAddress(){
+    let address = document.getElementById("address").value
+    if (!address.replace(/\s/g, '').length) {
+        addressError.innerHTML = "Enter valid address";
+        return false;
+      }
+      addressError.innerHTML=""
+      return true
 }
 
 function validatePincode() {
@@ -85,8 +96,10 @@ function validateState() {
 }
 
 
+
+
 function validateForm() {
-    if (!validateName() || !validateMobile() || !validatePincode() || !validateTown() || !validateState()) {
+    if (!validateName() || !validateMobile() || !validatePincode() ||!validateAddress()|| !validateTown() || !validateState() ) {
         return false;
     }
 }
