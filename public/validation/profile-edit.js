@@ -15,7 +15,7 @@ function validateName1() {
         return false;
     }
     if (!name.match(nameRegex)) {
-        fnameError.innerHTML = "No numbers allowed";
+        fnameError.innerHTML = "Only letters are allowed";
         return false;
     }
     fnameError.innerHTML = "";
@@ -29,7 +29,7 @@ function validateName2() {
         return false;
     }
     if (!name.match(nameRegex)) {
-        lnameError.innerHTML = "No numbers allowed";
+        lnameError.innerHTML = "Only letters are allowed";
         return false;
     }
     lnameError.innerHTML = "";

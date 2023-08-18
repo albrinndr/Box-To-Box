@@ -16,7 +16,7 @@ function validateName() {
         return false;
     }
     if (!name.match(nameRegex)) {
-        nameError.innerHTML = "No numbers allowed";
+        nameError.innerHTML = "Only letters are allowed";
         return false;
     }
     nameError.innerHTML = "";
@@ -62,7 +62,7 @@ function validateTown() {
         return false;
     }
     if (!town.match(nameRegex)) {
-        townError.innerHTML = "No numbers allowed";
+        townError.innerHTML = "Only letters are allowed";
         return false;
     }
     townError.innerHTML = "";
@@ -77,7 +77,7 @@ function validateState() {
         return false;
     }
     if (!state.match(nameRegex)) {
-        stateError.innerHTML = "No numbers allowed";
+        stateError.innerHTML = "Only letters are allowed";
         return false;
     }
     stateError.innerHTML = "";
