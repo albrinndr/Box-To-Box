@@ -26,7 +26,7 @@ const postBanner = async (req, res, next) => {
 
         const bannerExist = await banner.findOne({ name })
         if (bannerExist && image != false && url != null) {
-            await fs.unlink(path.join(__dirname, '../public/bannerImages/') + name, (err) => {
+            await fs.unlink(path.join(__dirname, '../public/bannerImages/') + bannerExist.image, (err) => {
                 if (err) {
                     next(err)
                 }
@@ -34,7 +34,7 @@ const postBanner = async (req, res, next) => {
             await BANNER.updateOne({ name }, { $set: { image, url } })
         }
         else if (bannerExist && image != false) {
-            await fs.unlink(path.join(__dirname, '../public/bannerImages/') + name, (err) => {
+            await fs.unlink(path.join(__dirname, '../public/bannerImages/') + bannerExist.image, (err) => {
                 if (err) {
                     next(err)
                 }
